@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Room
 import json
-# List format  - [["username","message"],["username","message"]]
+# List format - [["username","message"],["username","message"]]
 # Create your views here.
 def lobby(request,lobby,username):
     if len(Room.objects.filter(Name=lobby)) == 0:
