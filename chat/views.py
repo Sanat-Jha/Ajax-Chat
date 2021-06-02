@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Room
-# from django.utils import 
 import json
 # List format  - [["username","message"],["username","message"]]
 # Create your views here.
