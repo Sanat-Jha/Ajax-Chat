@@ -22,6 +22,7 @@
     <button onclick="NewMessage()">Send</button>
     {% csrf_token %}
     <script>
+      var LatestChat = ""
     function NewMessage(){
         $.ajax({
                 type: "POST",
@@ -41,7 +42,6 @@
             });
     }
       function SetChat(mssgList) {
-        console.log(mssgList)
         ChatArea = document.getElementsByClassName("ChatList")[0];
         ChatArea.innerHTML = ``;
         for (mssg of mssgList) {
@@ -51,11 +51,33 @@
             ChatArea.innerHTML += `<div class="mssg">${mssg[0]}: ${mssg[1]}</div>`;
           }
         }
-      }
+        LatestChat = mssgList
+      };
       if ("{{New}}" !== "True"){
-      console.log("{{New}}");
-      SetChat(mssgList);
+        var list = JSON.parse('{{ChatList|safe}}'); 
+        console.log("here")
+      SetChat(list);
     }
+    // Keep checking updates
+    update()
+    function update(){
+    $.ajax({
+                type: "POST",
+                url: "/update",
+                data: { 
+                    room: "{{LobbyName}}",
+                    currentStatus: LatestChat,
+                    csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(lst) {
+                    SetChat(lst.chatlst);
+                    update()
+                },
+                error: function(result) {
+                    alert('error');
+                }
+            });
+          };
     </script>
   </body>
 </html>

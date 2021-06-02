@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Room
+# from django.utils import 
 import json
 # List format  - [["username","message"],["username","message"]]
 # Create your views here.
@@ -9,10 +10,10 @@ def lobby(request,lobby,username):
         chat = json.dumps([])
         NewRoom = Room(Name = lobby,Chat=chat)
         NewRoom.save()
-        context = {"New":True,"username":username}
+        context = {"New":True,"LobbyName":lobby}
         return render(request,"room.html",context)
     room = Room.objects.filter(Name=lobby)[0]
-    chatlist = json.loads(room.Chat)
+    chatlist = room.Chat
     LobbyName = room.Name
     context = {"ChatList":chatlist,"LobbyName":LobbyName,"username":username,"New":False}
     return render(request,"room.html",context)
@@ -28,8 +29,11 @@ def Newmssg(request):
     room.save()
     return JsonResponse({"ChatList":chat})
 
-# [
-#     [Username,],
-#     [],
-#     []
-# ]
+def Update(request):
+    CurrentStatus = request.POST.get("currentStatus")
+    RoomName = request.POST.get("room")
+    room = Room.objects.filter(Name=RoomName)[0]
+    Chat = json.loads(room.Chat)
+    while True:
+        if Chat != CurrentStatus:
+            return JsonResponse({"chatlst":Chat})
