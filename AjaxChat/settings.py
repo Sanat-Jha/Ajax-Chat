@@ -25,7 +25,7 @@ SECRET_KEY = '^8ogkrgj3j5$p=ot3(8pu)ty2(m-7(30z#i)5b8h7_pwkc1hfg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1","https://ajaxchat.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1","ajaxchat.herokuapp.com"]
 
 
 # Application definition
