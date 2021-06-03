@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '^8ogkrgj3j5$p=ot3(8pu)ty2(m-7(30z#i)5b8h7_pwkc1hfg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","https://ajaxchat.herokuapp.com"]
 
 
 # Application definition
