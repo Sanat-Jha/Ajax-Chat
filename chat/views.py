@@ -4,6 +4,8 @@ from .models import Room
 import json
 # List format - [["username","message"],["username","message"]]
 # Create your views here.
+def home(request):
+    return render(request,"home.html")
 def lobby(request,lobby,username):
     if len(Room.objects.filter(Name=lobby)) == 0:
         chat = json.dumps([])
